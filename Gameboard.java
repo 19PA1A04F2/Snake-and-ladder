@@ -7,12 +7,12 @@ import java.util.Queue;
 class GameBoard {
     private Dice dice;
     private Queue<Player> nextTurn;
-    private List<Snakeandladder> snakes;
-    private  List<Snakeandladder> ladders;
+    private Map<Integer,Integer> snakes;
+    private  Map<Integer,Integer> ladders;
     private  Map<String,Integer> playersCurrentPosition;
     int boardSize;
 
-     GameBoard(Dice dice, Queue<Player> nextTurn, List<Snakeandladder> snakes, List<Snakeandladder> ladders,Map<String,Integer> playersCurrentPosition,int boardSize) {
+     GameBoard(Dice dice, Queue<Player> nextTurn, Map<Integer,Integer> snakes, Map<Integer,Integer> ladders,Map<String,Integer> playersCurrentPosition,int boardSize) {
         this.dice = dice;
         this.nextTurn = nextTurn;
         this.snakes = snakes;
@@ -32,19 +32,17 @@ class GameBoard {
                 System.out.println( player.getPlayerName() + " won the game");
             }else{
                int[] nextPosition= new int[1];
-               boolean[] b =new boolean[1];
+               int c=0;
                 nextPosition[0]= nextCell;
-               snakes.forEach(v-> {
-                   if(v.startPoint==nextCell) {
-                       nextPosition[0] = v.endPoint;
-                   } } );
+                if(snakes.containsKey(nextCell)){
+                    nextPosition[0]=snakes.get(nextCell);
+                }
                if(nextPosition[0] != nextCell) System.out.println(player.getPlayerName() + " Bitten by Snake present at: "+ nextCell);
-                ladders.forEach(v-> {
-                    if(v.startPoint==nextCell) {
-                        nextPosition[0] = v.endPoint;
-                        b[0]=true;
-                    } } );
-                if(nextPosition[0] != nextCell && b[0]) System.out.println(player.getPlayerName() + " Got ladder present at: "+ nextCell);
+                if(ladders.containsKey(nextCell)){
+                    nextPosition[0]=ladders.get(nextCell);
+                    c=1;
+                }
+                if(nextPosition[0] != nextCell && c==1) System.out.println(player.getPlayerName() + " Got ladder present at: "+ nextCell);
                 if(nextPosition[0] == boardSize){
                     System.out.println(player.getPlayerName() + " won the game");
                 }else{
