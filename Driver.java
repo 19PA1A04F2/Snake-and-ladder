@@ -19,21 +19,21 @@ class PlaySnakeAndLadder {
             numberofplayers--;
         }
         int numberofsnakes=sc.nextInt();
-        List<Snakeandladder> snakes = new ArrayList<>();
+        Map<Integer,Integer> snakes = new HashMap<>();
         while(numberofsnakes>0){
             int startpoint=sc.nextInt();
             int endpoint=sc.nextInt();
             Snakeandladder snake=new Snakeandladder(startpoint,endpoint);
-            snakes.add(snake);
+            snakes.put(startpoint,endpoint);
             numberofsnakes--;
         }
         int numberofladders=sc.nextInt();
-        List<Snakeandladder> ladders = new ArrayList<>();
+        Map<Integer,Integer> ladders = new HashMap<>();
         while(numberofladders>0){
             int startpoint=sc.nextInt();
             int endpoint=sc.nextInt();
             Snakeandladder ladder=new Snakeandladder(startpoint,endpoint);
-            ladders.add(ladder);
+            ladders.put(startpoint,endpoint);
             numberofladders--;
         }
         GameBoard gb=new GameBoard(dice,allPlayers,snakes,ladders,playersCurrentPosition,boardsize);
